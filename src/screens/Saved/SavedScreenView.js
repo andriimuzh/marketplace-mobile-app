@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import T from 'prop-types';
 import s from './styles';
-import { SearchInput, ProductList, Loader } from '../../components';
+import { SearchInput, ProductList } from '../../components';
 import { colors } from '../../styles';
 
 function SavedScreen({ isLoading, list, fetchSaved }) {

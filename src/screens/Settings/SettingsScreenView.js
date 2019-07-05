@@ -4,7 +4,7 @@ import { EvilIcons, Ionicons } from '@expo/vector-icons';
 import T from 'prop-types';
 import s from './styles';
 import { colors } from '../../styles';
-import { Touchable } from '../../atoms';
+import { Touchable } from '../../components';
 
 function SettingsScreen({ handleLogout }) {
   return (

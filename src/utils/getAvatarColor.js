@@ -6,5 +6,5 @@ export default function getAvatarColor(username) {
   }
 
   const h = hash % 360;
-  return `hsl(${h}, 35%, 70%)`;
+  return `hsl(${h}, 46%, 60%)`;
 }

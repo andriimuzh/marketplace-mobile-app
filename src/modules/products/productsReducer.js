@@ -29,8 +29,9 @@ const INITIAL_STATE = {
     isLoading: false,
     error: null,
     isError: false,
-    items: [],
-    count: 0,
+    items: {
+    //  userId: []
+    },
   },
 
   productsOwner: {
@@ -190,13 +191,16 @@ export default handleActions(
         isError: false,
       },
     }),
-    [actions.fetchUserProducts.success]: (state, action) => ({
+    [actions.fetchUserProducts.success]: (state,
+      { payload: { result, userId } }) => ({
       ...state,
       userProducts: {
         ...state.userProducts,
         isLoading: false,
-        items: action.payload.result.list,
-        count: action.payload.result.count,
+        items: {
+          ...state.userProducts.items,
+          [userId]: result.list,
+        },
       },
     }),
     [actions.fetchUserProducts.error]: (state, action) => ({

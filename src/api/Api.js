@@ -41,7 +41,7 @@ export const Auth = {
   async setToken(token) {
     await authToken.set(token);
     this._token = token;
-    this._storeTokenToAxios();
+    this._storeTokenToAxios(token);
     return token;
   },
 
@@ -140,7 +140,12 @@ export const Messages = {
     return axios.post(`${urls.baseURL}${urls.CHATS}/${chatId}${urls.MESSAGES}`, { text });
   },
 
-  fetchMessages(chatId) {
-    return axios.get(`${urls.baseURL}${urls.CHATS}/${chatId}${urls.MESSAGES}?limit=100`);
+  fetchMessages(chatId, offset = 0, limit = 5) {
+    return axios.get(`${urls.baseURL}${urls.CHATS}/${chatId}${urls.MESSAGES}`, {
+      params: {
+        offset,
+        limit,
+      },
+    });
   },
 };

@@ -15,12 +15,58 @@ const styles = StyleSheet.create({
   textContainer: {
     marginLeft: 12,
     justifyContent: 'flex-start',
+    width: '100%',
+  },
+
+  topLine: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
 
   title: {
     fontSize: 16,
     fontWeight: '500',
     color: colors.textPrimary,
+    marginBottom: 3,
+    width: '60%',
+  },
+
+  messageTime: {
+    color: colors.textUnused,
+    fontSize: 14,
+  },
+
+  participant: {
+    color: colors.primary,
+    fontSize: 14,
+  },
+
+  lastMessage: {
+    color: colors.textPrimary,
+    fontSize: 14,
+    width: '80%',
+  },
+
+  imageWrap: {
+    position: 'relative',
+    height: 54,
+    width: 54,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  productPhoto: {
+    height: 46,
+    width: 46,
+    borderRadius: 23,
+  },
+
+  avatarWrap: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    zIndex: 20,
   },
 });
 

@@ -21,7 +21,7 @@ export function init() {
 
       dispatch(actions.initialization.success());
 
-      dispatch(viewerOperations.fetchViewer());
+      await dispatch(viewerOperations.fetchViewer());
 
       dispatch(subscribeToSockets());
     } catch (err) {

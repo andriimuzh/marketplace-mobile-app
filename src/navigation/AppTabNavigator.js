@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
-import { Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import {
+  Ionicons, MaterialIcons,
+  AntDesign,
+} from '@expo/vector-icons';
 import { Text, View } from 'react-native';
 import screens from './screens';
 import s from './styles';
@@ -9,9 +12,10 @@ import BrowseNavigator from './BrowseNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import SavedNavigator from './SavedNavigator';
 import InboxNavigator from './InboxNavigator';
-import { Empty } from '../components';
+import { Empty, Touchable } from '../components';
 import { colors } from '../styles';
 import CustomTabBar from './components/CustomTabBar';
+import { NavigationService } from '../services';
 
 
 const routes = {
@@ -37,7 +41,7 @@ const routes = {
     screen: SavedNavigator,
     navigationOptions: {
       tabBarIcon: (props) => (
-        <FontAwesome
+        <MaterialIcons
           name="bookmark"
           size={28}
           color={props.focused ? colors.primary : colors.textUnused}

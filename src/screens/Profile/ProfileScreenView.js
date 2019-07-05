@@ -1,48 +1,56 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import T from 'prop-types';
 import s from './styles';
 import { NavigationService } from '../../services';
-import { Avatar, Loader, ProductList } from '../../components';
-import { Touchable } from '../../atoms';
-import { deviceUtils } from '../../utils';
+import
+{ Avatar, ProductList, PrimaryButton, BackButton, Touchable }
+  from '../../components';
 import { colors } from '../../styles';
 
 function ProfileScreen({
-  viewer, productsIsLoading, userIsLoading, fetchProducts, products,
+  productsIsLoading, fetchProducts, products, isViewerProfile, productOwner,
 }) {
-  if (userIsLoading) {
-    return <Loader />;
-  }
-  if (viewer) {
+  if (!isViewerProfile && !productOwner) {
     return (
-      <ProductList
-        fetchItems={fetchProducts}
-        isLoading={productsIsLoading}
-        items={products}
-      />
+      <View style={s.container}>
+        <Text style={s.title}>
+          Login to view your profile.
+          For now you can learn how to
+          play by our rules
+        </Text>
+        <PrimaryButton
+          title="LOGIN"
+          onPress={() => NavigationService.navigateToAuth()}
+        />
+      </View>
     );
   }
   return (
-    <View style={s.container}>
-      <Text>Profile</Text>
-    </View>
+    <ProductList
+      fetchItems={fetchProducts}
+      isLoading={productsIsLoading}
+      items={products}
+    />
   );
 }
 
 ProfileScreen.navigationOptions = (props) => {
   const navProps = props.navigation.getParam('navProps');
-  if (navProps) {
+  if (navProps && navProps.user) {
+    const {
+      user, count, isViewerProfile, userId,
+    } = navProps;
     return {
       header:
   <View style={s.headerContainer}>
     <View>
-      <Avatar size={72} user={navProps.user} />
-      <Text style={s.username}>{navProps.user.fullName}</Text>
-      <Text style={s.active}>active: <Text style={s.activeNumber}>{navProps.count}</Text></Text>
+      <Avatar size={72} user={user} />
+      <Text style={s.username}>{user.fullName}</Text>
+      <Text style={s.active}>active: <Text style={s.activeNumber}>{count}</Text></Text>
     </View>
-    {navProps.isViewer ?
+    {isViewerProfile &&
       <Touchable
         style={s.settingsIcon}
         useOpacityAndroid
@@ -50,19 +58,8 @@ ProfileScreen.navigationOptions = (props) => {
         onPress={() => NavigationService.navigateToSettings()}
       >
         <AntDesign name="setting" size={28} color={colors.textPrimary} />
-      </Touchable> :
-      <Touchable
-        style={s.goBackIcon}
-        useOpacityAndroid
-        hitSlop={10}
-        onPress={() => NavigationService.goBack()}
-      >
-        <Ionicons
-          name={deviceUtils.isAndroid ? 'md-arrow-back' : 'ios-arrow-back'}
-          size={26}
-          color={colors.textPrimary}
-        />
       </Touchable>}
+    {userId && <BackButton />}
   </View>,
     };
   }
@@ -73,16 +70,19 @@ ProfileScreen.navigationOptions = (props) => {
 
 
 ProfileScreen.propTypes = {
-  viewer: T.object,
+  productOwner: T.object,
+  isViewerProfile: T.bool,
   productsIsLoading: T.bool,
-  userIsLoading: T.bool,
+  fetchProducts: T.func,
+  products: T.array,
 };
 
 const func = () => {};
 
 ProfileScreen.defaultProps = {
   productsIsLoading: false,
-  userIsLoading: false,
+  fetchProducts: func,
+  isViewerProfile: false,
 };
 
 

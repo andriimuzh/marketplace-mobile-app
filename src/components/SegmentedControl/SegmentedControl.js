@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import T from 'prop-types';
-import { Touchable } from '../../atoms';
+import Touchable from '../Touchable';
 import s from './styles';
 
 function SegmentedControl({ isPriceFree, handleSelect }) {

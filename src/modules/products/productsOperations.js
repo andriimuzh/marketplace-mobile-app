@@ -1,6 +1,6 @@
 import { normalize } from 'normalizr';
 import * as actions from './productsActions';
-import { PAGE_SIZE } from './productsConstants';
+import { PAGE_SIZE } from '../../constants';
 import { Api, schemas } from '../../api';
 
 export function fetchLatest() {
@@ -32,7 +32,7 @@ export function fetchLatestMore() {
     try {
       dispatch(actions.fetchLatestMore.start());
 
-      const res = await Api.Products.getLatest({ limit: PAGE_SIZE, offset: items.length });
+      const res = await Api.Products.getLatest();
       const { result, entities } = normalize(res.data, schemas.Products);
 
       if (result.length < PAGE_SIZE) {
@@ -94,15 +94,15 @@ export function fetchProductsOwner(id) {
   };
 }
 
-export function fetchUserProducts(id) {
+export function fetchUserProducts(userId) {
   return async function fetchUserProductsThunk(dispatch) {
     try {
       dispatch(actions.fetchUserProducts.start());
 
-      const result = await Api.Products.getUserProducts(id);
-      const data = normalize(result.data, schemas.userProductsList);
+      const res = await Api.Products.getUserProducts(userId);
+      const { entities, result } = normalize(res.data, schemas.userProductsList);
 
-      dispatch(actions.fetchUserProducts.success(data));
+      dispatch(actions.fetchUserProducts.success({ entities, result, userId }));
     } catch (err) {
       dispatch(actions.fetchUserProducts.error({ message: err.message }));
     }

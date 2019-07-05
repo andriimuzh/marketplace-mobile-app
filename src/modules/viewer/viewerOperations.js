@@ -1,6 +1,7 @@
 import { normalize } from 'normalizr';
 import * as actions from './viewerActions';
 import { Api, schemas } from '../../api';
+import { NavigationService } from '../../services';
 
 export function fetchViewer() {
   return async function fetchViewerThunk(dispatch) {
@@ -20,7 +21,8 @@ export function fetchViewer() {
 
 export function logout() {
   return async function logoutThunk(dispatch) {
-    await Api.Auth.removeToken();
     dispatch(actions.logout());
+    NavigationService.navigateToAuth();
+    Api.Auth.removeToken();
   };
 }

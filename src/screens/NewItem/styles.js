@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 
   inputError: {
     color: colors.error,
-    marginBottom: 6,
+    marginBottom: 2,
   },
 
   // ---------- PHOTOS
@@ -155,7 +155,24 @@ const styles = StyleSheet.create({
   },
 
   locationContainer: {
-    height: 64,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+  },
+
+  locationLeftCol: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingLeft: 8,
+    width: 130,
+  },
+
+  locationText: {
+    color: colors.primary,
+    fontSize: 16,
+    paddingHorizontal: 6,
   },
 
   // ----------------- HEADER

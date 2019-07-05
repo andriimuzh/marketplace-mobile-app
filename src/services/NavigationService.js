@@ -51,11 +51,11 @@ class NavigationService {
     this.navigate({ routeName: screens.Browse });
   }
 
-  navigateToChat(chatId) {
-    this.navigate({ routeName: screens.Chat, params: { chatId } });
+  navigateToChat(chatId, ownerId) {
+    this.navigate({ routeName: screens.Chat, params: { chatId, ownerId } });
   }
 
-  navigateProfile(userId) {
+  navigateToProfile(userId) {
     this.navigate({ routeName: screens.Profile, params: { userId } });
   }
 

@@ -3,8 +3,7 @@ import { View } from 'react-native';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import T from 'prop-types';
 import s from './styles';
-import { ProductList, SearchInput } from '../../components';
-import { Touchable } from '../../atoms';
+import { ProductList, SearchInput, Touchable } from '../../components';
 import { colors } from '../../styles';
 import { NavigationService } from '../../services';
 

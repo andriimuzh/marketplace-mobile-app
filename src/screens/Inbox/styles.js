@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
 
-
   guestContainer: {
     flex: 1,
     alignItems: 'center',

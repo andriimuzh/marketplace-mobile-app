@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { compose, withHandlers, withState, hoistStatics } from 'recompose';
 import RegisterScreen from './RegisterScreenView';
 import { authOperations } from '../../../modules/auth';
-import { NavigationService } from '../../../services';
 import { setServerError } from '../../../utils';
 
 function mapStateToProps(state) {
@@ -28,7 +27,7 @@ const enhancer = compose(
     }) => async (body) => {
       try {
         await register(body);
-        NavigationService.navigateToApp();
+
       } catch (err) {
         serverErrorSetter(setServerError(err));
       }

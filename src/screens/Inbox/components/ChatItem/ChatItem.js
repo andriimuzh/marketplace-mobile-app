@@ -1,25 +1,39 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import T from 'prop-types';
-import { Touchable } from '../../../../atoms';
+import { Avatar, Touchable } from '../../../../components';
+import { imageValidator } from '../../../../utils';
 import s from './styles';
-import { Avatar } from '../../../../components';
 
 function ChatItem({ item, onPress }) {
   const {
-    id, product, lastMessage, createdAt, participants,
+    id, product, lastMessage, participants,
   } = item;
+  const participant = participants[0];
+  const productImage = imageValidator(product.photos);
+  // TODO: add time && last message time from chat
   return (
     <Touchable
       style={s.container}
       containersStyle={s.container}
       onPress={() => onPress(id)}
     >
-      <Avatar size={46} user={participants[0]} />
+      {productImage ?
+        <View style={s.imageWrap}>
+          <View style={s.avatarWrap}>
+            <Avatar size={22} user={participant} />
+          </View>
+          <Image source={{ uri: productImage }} style={s.productPhoto} />
+        </View> :
+        <Avatar size={46} user={participant} />
+      }
       <View style={s.textContainer}>
-        <Text style={s.title}>{product.title}</Text>
-        {/* <Text style={s.title}>{product.title}</Text> */}
-        <Text style={s.title}>{participants[0].fullName}</Text>
+        <View style={s.topLine}>
+          <Text numberOfLines={1} style={s.title}>{product.title}</Text>
+          <Text style={s.messageTime}>{lastMessage && lastMessage.createdAt}</Text>
+        </View>
+        <Text style={s.participant}>{participant.fullName}</Text>
+        <Text numberOfLines={1} style={s.lastMessage}>{lastMessage && lastMessage.text}</Text>
       </View>
 
     </Touchable>

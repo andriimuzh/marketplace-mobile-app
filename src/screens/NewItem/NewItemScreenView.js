@@ -2,15 +2,11 @@ import React from 'react';
 import { View, Text, TextInput, Image, ActivityIndicator } from 'react-native';
 import T from 'prop-types';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import {
-  AntDesign, Ionicons,
-  EvilIcons,
-} from '@expo/vector-icons';
+import { AntDesign, EvilIcons } from '@expo/vector-icons';
 import ActionSheet from 'react-native-actionsheet';
 import s from './styles';
 import { colors } from '../../styles';
-import { Touchable } from '../../atoms';
-import { SegmentedControl, WideLink, Loader, CloseButton } from '../../components';
+import { SegmentedControl, WideLink, Loader, CloseButton, Touchable } from '../../components';
 import { deviceUtils } from '../../utils';
 import { NavigationService } from '../../services';
 
@@ -53,8 +49,9 @@ function NewItemScreen({
           style={[s.input, { height: 136 }]}
           placeholder="Description..."
           multiline
+          numberOfLines={6}
           textAlignVertical="top"
-          underlineColorAndroid="transparent"
+          underlineColorAndroid={colors.transparent}
           onChangeText={handleChange('description')}
           onBlur={handleBlur('description')}
         />
@@ -121,10 +118,13 @@ function NewItemScreen({
         </Text>
         <View style={s.locationContainer}>
           <WideLink
-            title={values.location || 'Location'}
+            styles={{ height: 64 }}
             onPress={() => NavigationService.navigateToLocation(setLocation)}
           >
-            <EvilIcons name="location" size={30} color={colors.primary} />
+            <View style={s.locationLeftCol}>
+              <EvilIcons name="location" size={30} color={colors.primary} />
+              <Text style={s.locationText}>{values.location || 'Location'}</Text>
+            </View>
           </WideLink>
         </View>
       </View>

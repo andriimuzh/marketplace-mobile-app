@@ -4,9 +4,8 @@ import T from 'prop-types';
 import { EvilIcons } from '@expo/vector-icons';
 import s from './styles';
 import { deviceUtils } from '../../utils';
-import { Touchable } from '../../atoms';
 import { colors } from '../../styles';
-import { SegmentedControl, WideLink, CloseButton } from '../../components';
+import { SegmentedControl, WideLink, CloseButton, Touchable } from '../../components';
 import { NavigationService } from '../../services';
 
 

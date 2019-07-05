@@ -23,7 +23,7 @@ const enhancer = compose(
     mapDispatchToProps,
   ),
   withHandlers({
-    openChat: () => ({ chatId }) => {
+    openChat: () => (chatId) => {
       NavigationService.navigateToChat(chatId);
     },
   }),

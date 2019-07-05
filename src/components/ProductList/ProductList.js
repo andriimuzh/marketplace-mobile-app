@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
-import { ProductCard } from '../../atoms';
+import ProductCard from '../ProductCard/ProductCardContainer';
 import Loader from '../Loader/Loader';
 
 function ProductList({

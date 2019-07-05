@@ -5,15 +5,25 @@ const INITIAL_STATE = {
   items: {
     // [chatId]: [],
   },
+
+  hasNoMore: false,
+
   sendMessage: {
     isLoading: false,
     error: null,
     isError: false,
   },
+
   fetchMessages: {
     isLoading: false,
     error: null,
     isError: false,
+  },
+
+  fetchMessagesMore: {
+    isLoadingMore: false,
+    errorMore: null,
+    isErrorMore: false,
   },
 };
 
@@ -23,7 +33,7 @@ export default handleActions(
       ...state,
       items: {
         ...state.items,
-        [chatId]: (state.items[chatId] || []).concat(result),
+        [chatId]: [result].concat(state.items[chatId] || []),
       },
       sendMessage: {
         ...state.sendMessage,
@@ -37,13 +47,12 @@ export default handleActions(
       { payload: { result, chatId, oldMessageId } },
     ) => {
       const items = state.items[chatId]
-        .filter((i) => i !== `${oldMessageId}-${chatId}`)
-        .concat(result);
+        .filter((i) => i !== `${oldMessageId}-${chatId}`);
       return {
         ...state,
         items: {
           ...state.items,
-          [chatId]: items,
+          [chatId]: [result].concat(items),
         },
         sendMessage: {
           ...state.sendMessage,
@@ -60,6 +69,8 @@ export default handleActions(
         isError: true,
       },
     }),
+
+
     [actions.fetchMessages.start]: (state) => ({
       ...state,
       fetchMessages: {
@@ -76,7 +87,7 @@ export default handleActions(
       ...state,
       items: {
         ...state.items,
-        [chatId]: result.reverse(),
+        [chatId]: result,
       },
       fetchMessages: {
         ...state.fetchMessages,
@@ -90,6 +101,40 @@ export default handleActions(
         isLoading: false,
         error: action.payload,
         isError: true,
+      },
+    }),
+
+
+    [actions.fetchMessagesMore.start]: (state) => ({
+      ...state,
+      fetchMessagesMore: {
+        ...state.fetchMessagesMore,
+        isLoadingMore: true,
+        errorMore: null,
+        isErrorMore: false,
+      },
+    }),
+    [actions.fetchMessagesMore.success]: (
+      state,
+      { payload: { result, chatId } },
+    ) => ({
+      ...state,
+      items: {
+        ...state.items,
+        [chatId]: state.items.concat(result),
+      },
+      fetchMessagesMore: {
+        ...state.fetchMessagesMore,
+        isLoadingMore: false,
+      },
+    }),
+    [actions.fetchMessagesMore.error]: (state, action) => ({
+      ...state,
+      fetchMessagesMore: {
+        ...state.fetchMessagesMore,
+        isLoadingMore: false,
+        errorMore: action.payload,
+        isErrorMore: true,
       },
     }),
   },

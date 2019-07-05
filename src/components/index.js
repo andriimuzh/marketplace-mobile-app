@@ -6,5 +6,8 @@ export { default as Loader } from './Loader/Loader';
 export { default as SegmentedControl } from './SegmentedControl/SegmentedControl';
 export { default as SearchInput } from './SearchInput/SearchInput';
 export { default as WideLink } from './WideLink/WideLink';
+export { default as Touchable } from './Touchable';
 export { default as CloseButton } from './CloseButton/CloseButton';
+export { default as BackButton } from './BackButton/BackButton';
+export { default as SaveButton } from './SaveButton/SaveButton';
 export { default as Avatar } from './Avatar/Avatar';

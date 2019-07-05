@@ -5,8 +5,8 @@ import s from './styles';
 import { colors } from '../../styles';
 
 
-function Loader({ loading, text, isInitialLoading }) {
-  if (isInitialLoading) {
+function Loader({ loading, text }) {
+  if (!text) {
     return (
       <View style={s.container}>
         <ActivityIndicator color={colors.primary} size="large" />

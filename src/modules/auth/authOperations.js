@@ -1,11 +1,11 @@
 import { normalize } from 'normalizr';
 import * as actions from './authActions';
 import { Api, schemas } from '../../api';
+import { NavigationService } from '../../services';
 
 
 export function login(body) {
   return async function loginThunk(dispatch) {
-    let error;
     try {
       dispatch(actions.login.start());
 
@@ -16,12 +16,12 @@ export function login(body) {
       Api.Auth.setToken(token);
 
       dispatch(actions.login.success({ user, entities }));
+
+      NavigationService.navigateToApp();
     } catch (err) {
-      error = err;
       dispatch(actions.login.error({ message: err.message }));
       throw err;
     }
-    return error;
   };
 }
 
@@ -37,6 +37,8 @@ export function register(body) {
       Api.Auth.setToken(token);
 
       dispatch(actions.register.success({ user, entities }));
+
+      NavigationService.navigateToApp();
     } catch (err) {
       dispatch(actions.register.error({ message: err.message }));
       throw err;

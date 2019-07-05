@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 const getProductsEntities = (state) => state.entities.products;
 const getLatestIds = (state) => state.products.latest.items;
 const getSavedIds = (state) => state.products.savedProducts.items;
-const getUserProductsIds = (state) => state.products.userProducts.items;
+const getUserProductsIds = (state, userId) => state.products.userProducts.items[userId] || [];
 const getUserEntities = (state) => state.entities.users;
 
 export const getLatest = createSelector(

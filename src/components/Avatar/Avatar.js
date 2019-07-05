@@ -8,24 +8,24 @@ function Avatar({ size, user }) {
   const { fullName, photo } = user;
   const titleSize = size * 0.6;
   const title = fullName.trim()[0].toUpperCase();
-  const borderRadius = size / 2;
+  const styles = {
+    borderRadius: (size / 2),
+    height: size,
+    width: size,
+  };
+
   const background = getAvatarColor(fullName);
 
   return (
     <View style={s.container}>
-      <View
-        style={[s.innerWrap,
-      {
-        height: size,
-        width: size,
-        borderRadius,
-        backgroundColor: background,
-      },
-    ]}
-      >
-        <Text style={[s.title, { fontSize: titleSize }]}>{title}</Text>
-      </View>
-      {/* <Image source={{ uri: photo }} />//TODO: Avatar */}
+      {photo ?
+        <Image source={{ uri: photo }} style={styles} /> :
+        <View
+          style={[s.innerWrap, styles, { backgroundColor: background }]}
+        >
+          <Text style={[s.title, { fontSize: titleSize }]}>{title}</Text>
+        </View>
+    }
     </View>
   );
 }

@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import T from 'prop-types';
 import { EvilIcons } from '@expo/vector-icons';
 import s from './styles';
-import { Touchable } from '../../atoms';
+import Touchable from '../Touchable';
 import { colors } from '../../styles';
 
 function WideLink({
-  onPress, title, children, styles,
+  onPress, children, styles,
 }) {
   return (
     <Touchable
@@ -15,27 +15,22 @@ function WideLink({
       containerStyle={s.container}
       onPress={onPress}
     >
-      <View style={s.leftCol}>
+      <View style={s.innerContainer}>
         {children}
-        <Text style={s.text}>{title}</Text>
       </View>
-      <View>
-        <EvilIcons name="chevron-right" size={42} color={colors.textUnused} />
-      </View>
+      <EvilIcons name="chevron-right" size={45} color={colors.textUnused} />
     </Touchable>
   );
 }
 
 WideLink.propTypes = {
   onPress: T.func,
-  title: T.string,
-  children: T.element,
+  children: T.any,
   styles: T.object,
 };
 
 WideLink.defaultProps = {
   onPress: () => {},
-  title: 'Location',
 };
 
 export default WideLink;

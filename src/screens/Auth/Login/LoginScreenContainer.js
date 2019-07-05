@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withFormik } from 'formik';
 import LoginScreen from './LoginScreenView';
 import { authOperations } from '../../../modules/auth';
-import { NavigationService } from '../../../services';
 import { setServerError, validationSchemas } from '../../../utils';
 
 
@@ -46,7 +45,6 @@ const enhancer = compose(
     ) => {
       try {
         await login(body);
-        NavigationService.navigateToApp();
       } catch (err) {
         serverErrorSetter(setServerError(err));
       }

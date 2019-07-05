@@ -2,7 +2,8 @@ import React from 'react';
 import { Text } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
-import { Touchable } from '../../atoms';
+import Touchable from '../Touchable';
+
 
 function PrimaryButton({
   title, onPress,

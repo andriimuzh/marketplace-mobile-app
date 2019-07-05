@@ -17,6 +17,7 @@
     "expo-permissions": "~5.0.1",
     "expo-secure-store": "~5.0.1",
     "formik": "^1.5.7",
+    "luxon": "^1.16.1",
     "mirror-to-object-pairs": "^1.0.1",
     "normalizr": "^3.4.0",
     "prop-types": "^15.7.2",

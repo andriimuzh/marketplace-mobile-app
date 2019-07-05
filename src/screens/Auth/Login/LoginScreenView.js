@@ -4,8 +4,7 @@ import T from 'prop-types';
 import { Formik } from 'formik';
 import s from './styles';
 import { validationSchemas, deviceUtils } from '../../../utils';
-import { Touchable } from '../../../atoms';
-import { AuthInput, PrimaryButton, Loader } from '../../../components';
+import { AuthInput, PrimaryButton, Loader, Touchable } from '../../../components';
 import { NavigationService } from '../../../services';
 
 

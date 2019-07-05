@@ -9,6 +9,16 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
 
+  title: {
+    color: colors.textUnused,
+    fontSize: 16,
+    textAlign: 'center',
+    maxWidth: 210,
+    marginBottom: 10,
+  },
+
+  // ----- Header
+
   headerContainer: {
     marginTop: 20,
     height: 156,
@@ -23,12 +33,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 16,
     top: 16,
-  },
-
-  goBackIcon: {
-    position: 'absolute',
-    left: 16,
-    top: 19,
   },
 
   username: {

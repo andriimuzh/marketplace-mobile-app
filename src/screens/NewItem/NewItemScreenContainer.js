@@ -31,7 +31,7 @@ const enhancer = compose(
       const data = {
         title: body.title.trim(),
         location: body.location.trim(),
-        description: body.location.trim() || 'no description', // bug on server
+        description: body.description.trim() || 'no description', // bug on server
         photos: body.photos,
         price: body.price.trim() || '0',
       };

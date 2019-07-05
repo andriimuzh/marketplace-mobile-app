@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, FlatList } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
-import { PrimaryButton, Loader } from '../../components';
+import { PrimaryButton } from '../../components';
 import { NavigationService } from '../../services';
-import { ChatItem } from './components';
+import { ChatItem, Separator, EmptyInbox } from './components';
 
 function InboxScreen({
   viewer, fetchChats, chatsList, isLoading, openChat,
@@ -20,7 +20,8 @@ function InboxScreen({
         renderItem={({ item }) => (
           <ChatItem item={item} onPress={openChat} />
         )}
-        ListFooterComponent={Loader}
+        ItemSeparatorComponent={Separator}
+        ListEmptyComponent={EmptyInbox}
       />
     );
   }

@@ -4,9 +4,8 @@ import AppTabNavigator from './AppTabNavigator';
 import screens from './screens';
 import { Empty } from '../components';
 
-
 const routes = {
-  [screens.Init]: Empty, // remove in Production
+  [screens.Empty]: Empty,
   [screens.MainApp]: AppTabNavigator,
   [screens.Auth]: AuthNavigator,
 };
