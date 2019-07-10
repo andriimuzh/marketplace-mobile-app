@@ -32,7 +32,10 @@ export function fetchLatestMore() {
     try {
       dispatch(actions.fetchLatestMore.start());
 
-      const res = await Api.Products.getLatest();
+      const res = await Api.Products.getLatest({
+        limit: PAGE_SIZE,
+        offset: items.length,
+      });
       const { result, entities } = normalize(res.data, schemas.Products);
 
       if (result.length < PAGE_SIZE) {

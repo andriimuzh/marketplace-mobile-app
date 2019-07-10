@@ -4,16 +4,18 @@ import T from 'prop-types';
 import s from './styles';
 
 function SearchInput({
-  handleChange, children, style, text, onSubmit, handleBlur,
+  onChange, children, style, text, onSubmit, onBlur, onFocus,
 }) {
   return (
     <View style={[s.container, style]}>
       <TextInput
         style={s.input}
         value={text}
-        onChangeText={(e) => handleChange(e)}
+        blurOnSubmit
+        onChangeText={(e) => onChange(e)}
         onSubmitEditing={onSubmit}
-        onBlur={handleBlur}
+        onBlur={onBlur}
+        onFocus={onFocus}
       />
       <View style={s.iconWrap}>
         {children}
@@ -24,18 +26,22 @@ function SearchInput({
 
 SearchInput.propTypes = {
   children: T.element,
-  handleChange: T.func,
+  onChange: T.func,
   style: T.object,
   text: T.string,
   onSubmit: T.func,
-  handleBlur: T.func,
+  onBlur: T.func,
+  onFocus: T.func,
 };
+
+const func = () => {};
 
 SearchInput.defaultProps = {
   text: '',
-  handleChange: () => {},
-  onSubmit: () => {},
-  handleBlur: () => {},
+  onChange: func,
+  onFocus: func,
+  onSubmit: func,
+  onBlur: func,
 };
 
 export default SearchInput;

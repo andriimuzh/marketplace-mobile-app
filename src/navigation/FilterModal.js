@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation';
 import FilterScreen from '../screens/Filter/FilterScreenContainer';
-import ChooseLocationScreen from '../screens/ChooseLocation/ChooseLocationScreenContainer';
+import ChooseLocationScreen from '../screens/Location/ChooseLocationScreenContainer';
 import screens from './screens';
 import s from './styles';
 import { colors } from '../styles';

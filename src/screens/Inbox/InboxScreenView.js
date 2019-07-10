@@ -2,14 +2,17 @@ import React from 'react';
 import { View, Text, FlatList } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
-import { PrimaryButton } from '../../components';
+import { PrimaryButton, Loader, Separator } from '../../components';
 import { NavigationService } from '../../services';
-import { ChatItem, Separator, EmptyInbox } from './components';
+import { ChatItem, EmptyInbox } from './components';
 
 function InboxScreen({
   viewer, fetchChats, chatsList, isLoading, openChat,
 }) {
   if (viewer) {
+    if (isLoading) {
+      return <Loader />;
+    }
     return (
       <FlatList
         data={chatsList}

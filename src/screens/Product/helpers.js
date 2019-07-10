@@ -13,7 +13,7 @@ export const isNotMyProduct = (viewer, ownerId) => {
 export const getPhoneNumber = (number) => {
   let phoneNumber;
   if (!deviceUtils.isAndroid) {
-    phoneNumber = `telprompt:${number}`;
+    phoneNumber = `tel://${number}`;
   } else {
     phoneNumber = `tel:${number}`;
   }

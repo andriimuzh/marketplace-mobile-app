@@ -9,7 +9,10 @@ import { SegmentedControl, WideLink, CloseButton, Touchable } from '../../compon
 import { NavigationService } from '../../services';
 
 
-function FilterScreen({ onPriceChoose, isPriceFree, setLocation }) {
+function FilterScreen({
+  onPriceChoose, isPriceFree, setPriceFrom, priceFrom,
+  priceTo, setPriceTo, setLocation, location, startSearch,
+}) {
   return (
     <KeyboardAvoidingView
       behavior="padding"
@@ -18,10 +21,11 @@ function FilterScreen({ onPriceChoose, isPriceFree, setLocation }) {
     >
       <View style={s.topContainer}>
         <WideLink
-          title="location"
+          styles={s.locationBox}
           onPress={() => NavigationService.navigateToLocation(setLocation)}
         >
           <EvilIcons name="location" size={30} color={colors.primary} />
+          <Text style={s.locationText}>{location || 'Location'}</Text>
         </WideLink>
         <SegmentedControl
           handleSelect={onPriceChoose}
@@ -30,11 +34,15 @@ function FilterScreen({ onPriceChoose, isPriceFree, setLocation }) {
         <View style={s.price}>
           <TextInput
             placeholder="From"
+            value={isPriceFree ? '' : priceFrom}
+            onChangeText={(e) => setPriceFrom(e)}
             editable={!isPriceFree}
             style={s.priceInput}
           />
           <TextInput
             placeholder="To"
+            value={isPriceFree ? '' : priceTo}
+            onChangeText={(e) => setPriceTo(e)}
             editable={!isPriceFree}
             style={s.priceInput}
           />
@@ -44,6 +52,7 @@ function FilterScreen({ onPriceChoose, isPriceFree, setLocation }) {
       <Touchable
         style={s.wideButton}
         containerStyle={s.wideButton}
+        onPress={() => startSearch()}
       >
         <Text style={s.wideButtonText}>RESULTS</Text>
       </Touchable>
@@ -58,6 +67,12 @@ FilterScreen.navigationOptions = () => ({
 
 FilterScreen.propTypes = {
   onPriceChoose: T.func,
+  setPriceFrom: T.func,
+  startSearch: T.func,
+  setPriceTo: T.func,
+  priceTo: T.string,
+  location: T.string,
+  priceFrom: T.string,
   setLocation: T.func,
   isPriceFree: T.bool,
 };
@@ -67,6 +82,11 @@ const func = () => {};
 FilterScreen.defaultProps = {
   onPriceChoose: func,
   setLocation: func,
+  setPriceFrom: func,
+  startSearch: func,
+  setPriceTo: func,
+  priceTo: '',
+  location: '',
   isPriceFree: false,
 };
 

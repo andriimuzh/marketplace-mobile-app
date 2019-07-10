@@ -9,7 +9,7 @@ function CloseButton() {
   return (
     <Touchable
       useOpacityAndroid
-      hitSlop={14}
+      hitSlop={10}
       onPress={() => NavigationService.goBack()}
       style={{ paddingHorizontal: 16 }}
     >

@@ -3,13 +3,18 @@ import * as actions from './chatsActions';
 
 const INITIAL_STATE = {
   items: [],
+  lastCreatedChatId: {
+    // newChatId: '',
+    // chatProductId: '',
+  },
   createChat: {
     isLoading: false,
     error: null,
     isError: false,
   },
+
   fetchChats: {
-    isLoading: true,
+    isLoading: false,
     error: null,
     isError: false,
   },
@@ -19,6 +24,7 @@ export default handleActions(
   {
     [actions.createChat.start]: (state) => ({
       ...state,
+      lastCreatedChatId: '',
       createChat: {
         ...state.createChat,
         isLoading: true,
@@ -26,9 +32,13 @@ export default handleActions(
         isError: false,
       },
     }),
-    [actions.createChat.success]: (state, action) => ({
+    [actions.createChat.success]: (state, { payload: { result, productId } }) => ({
       ...state,
-      items: [action.payload.result].concat(state.items),
+      lastCreatedChatId: {
+        newChatId: result,
+        chatProductId: productId,
+      },
+      items: [result].concat(state.items),
       createChat: {
         ...state.createChat,
         isLoading: false,
@@ -43,6 +53,8 @@ export default handleActions(
         isError: true,
       },
     }),
+
+
     [actions.fetchChats.start]: (state) => ({
       ...state,
       fetchChats: {
@@ -69,6 +81,7 @@ export default handleActions(
         isError: true,
       },
     }),
+
   },
   INITIAL_STATE,
 );

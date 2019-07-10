@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { distanceInWordsToNow } from 'date-fns';
 import T from 'prop-types';
 import s from './styles';
 import { colors } from '../../../../styles';
@@ -17,7 +18,7 @@ function ProductBar({ product }) {
         <Text numberOfLines={1} style={s.price}>{`$${price}`}</Text>
       </View>
       <View style={s.bottomLine}>
-        <Text style={s.createdAt}>{createdAt}</Text>
+        <Text style={s.createdAt}>{distanceInWordsToNow(createdAt, { addSuffix: true })}</Text>
         <MaterialIcons
           name="location-on"
           size={20}

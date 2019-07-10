@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import T from 'prop-types';
+import { timeDurationSetter } from '../../../../utils';
 import s from './styles';
 
 function Message({ item, viewerId }) {
@@ -10,7 +11,7 @@ function Message({ item, viewerId }) {
     <View style={[s.container, isViewer && { alignItems: 'flex-end' }]}>
       <View style={[isViewer ? s.viewerContainer : s.messageContainer]}>
         <Text style={[isViewer ? s.viewerText : s.text]}>{text}</Text>
-        <Text style={[isViewer ? s.viewerDate : s.date]}>{createdAt}</Text>
+        <Text style={[isViewer ? s.viewerDate : s.date]}>{timeDurationSetter(createdAt)}</Text>
       </View>
     </View>
   );

@@ -140,11 +140,28 @@ export const Messages = {
     return axios.post(`${urls.baseURL}${urls.CHATS}/${chatId}${urls.MESSAGES}`, { text });
   },
 
-  fetchMessages(chatId, offset = 0, limit = 5) {
+  fetchMessages(chatId, { from, limit = 10 }) {
     return axios.get(`${urls.baseURL}${urls.CHATS}/${chatId}${urls.MESSAGES}`, {
+      params: {
+        from,
+        limit,
+      },
+    });
+  },
+};
+
+
+// ------------------------ SEARCH
+
+export const Search = {
+  searchProductsBy({
+    queries, offset = 0, limit = 20,
+  }) {
+    return axios.get(`${urls.baseURL}${urls.PRODUCTS}/search`, {
       params: {
         offset,
         limit,
+        ...queries,
       },
     });
   },

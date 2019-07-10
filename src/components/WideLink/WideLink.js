@@ -12,13 +12,13 @@ function WideLink({
   return (
     <Touchable
       style={[s.container, styles]}
-      containerStyle={s.container}
+      containerStyle={[s.container, styles]}
       onPress={onPress}
     >
-      <View style={s.innerContainer}>
-        {children}
+      {children}
+      <View style={s.iconContainer}>
+        <EvilIcons name="chevron-right" size={48} color={colors.textUnused} />
       </View>
-      <EvilIcons name="chevron-right" size={45} color={colors.textUnused} />
     </Touchable>
   );
 }

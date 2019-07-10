@@ -27,10 +27,6 @@ class NavigationService {
     this.navigate({ routeName: screens.NewItem });
   }
 
-  navigateToFilter() {
-    this.navigate({ routeName: screens.Filter });
-  }
-
   navigateToAuth() {
     this.navigate({ routeName: screens.Auth });
   }
@@ -51,8 +47,12 @@ class NavigationService {
     this.navigate({ routeName: screens.Browse });
   }
 
-  navigateToChat(chatId, ownerId) {
-    this.navigate({ routeName: screens.Chat, params: { chatId, ownerId } });
+  navigateToFilter(searchBy) {
+    this.navigate({ routeName: screens.Filter, params: { searchBy } });
+  }
+
+  navigateToChat(propsChatId, productId, ownerId) {
+    this.navigate({ routeName: screens.Chat, params: { propsChatId, productId, ownerId } });
   }
 
   navigateToProfile(userId) {

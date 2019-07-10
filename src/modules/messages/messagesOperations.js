@@ -46,7 +46,7 @@ export function fetchMessages(chatId) {
       );
 
       if (result.length < PAGE_SIZE) {
-        dispatch(actions.latestHasNoMore());
+        dispatch(actions.messagesHasNoMore());
       }
 
       dispatch(actions.fetchMessages.success({ result, entities, chatId }));
@@ -58,22 +58,28 @@ export function fetchMessages(chatId) {
 
 export function fetchMessagesMore(chatId) {
   return async function fetchMessagesMoreThunk(dispatch, getState) {
-    const { isLoadingMore, hasNoMore, items } = getState().messages.items;
-    if (hasNoMore || isLoadingMore) {
+    const { getMessagesMore, hasNoMore, items } = getState().messages;
+    // getting compose ID of last fetched message
+    const lastFetchedMessageId = items[chatId][items[chatId].length - 1];
+    // getting real last fetched message ID from entities
+    const fromId = getState().entities.messages[lastFetchedMessageId].id;
+
+    if (hasNoMore || getMessagesMore.isLoadingMore) {
       return;
     }
 
     try {
       dispatch(actions.fetchMessagesMore.start());
 
-      const res = await Api.Messages.fetchMessagesMore(chatId, { limit: PAGE_SIZE, offset: items.length });
+      const res = await Api.Messages.fetchMessages(chatId,
+        { limit: PAGE_SIZE, from: fromId });
       const { result, entities } = normalize(
         res.data,
         schemas.MessageCollection,
       );
 
       if (result.length < PAGE_SIZE) {
-        dispatch(actions.latestHasNoMore());
+        dispatch(actions.messagesHasNoMore());
       }
 
       dispatch(actions.fetchMessagesMore.success({ result, entities, chatId }));

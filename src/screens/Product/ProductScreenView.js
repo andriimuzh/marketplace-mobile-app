@@ -26,7 +26,7 @@ function ProductScreen({
   const productOwnerId = owner || ownerId;
 
   const placeholder =
-    'https://via.placeholder.com/300x300.png?text=NO PRODUCT IMAGE';
+    'https://via.placeholder.com/320x360.png?text=NO PRODUCT IMAGE';
   let photo = imageValidator(photos, placeholder);
   if (isImageError) {
     photo = placeholder;
@@ -46,7 +46,6 @@ function ProductScreen({
       <View style={s.bottomBox} >
         <View style={s.descriptionBox}>
           <Text numberOfLines={2} style={s.description}>{description}</Text>
-          {/* //TODO: add open Button */}
           <Touchable
             onPress={() => {}}
             useOpacityAndroid
@@ -88,7 +87,7 @@ ProductScreen.navigationOptions = (props) => {
   const navProps = props.navigation.getParam('navProps');
   if (navProps) {
     const {
-      product, productsSaveSwitcher, onImageShare, viewer,
+      product, productsSaveSwitcher, onProductShare, viewer,
     } = navProps;
     return {
       header:
@@ -103,7 +102,7 @@ ProductScreen.navigationOptions = (props) => {
       />
     }
     <Touchable
-      onPress={() => onImageShare()}
+      onPress={() => onProductShare()}
       style={s.shareButton}
       useOpacityAndroid
       hitSlop={8}

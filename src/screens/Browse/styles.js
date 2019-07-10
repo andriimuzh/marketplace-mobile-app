@@ -1,27 +1,39 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../styles';
 
-
 const styles = StyleSheet.create({
-  headerContainer: {
-    height: 52,
-    marginTop: 20,
-    backgroundColor: colors.white,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: colors.border,
-    paddingLeft: 8,
-    paddingRight: 16,
-    elevation: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  filterList: {
+    height: 60,
+    backgroundColor: colors.background,
+    paddingHorizontal: 8,
   },
 
-  searchInput: {
-    height: 36,
-    width: '90%',
-    marginRight: 8,
+  wideLink: {
+    height: 44,
   },
+
+  listItem: {
+    fontSize: 16,
+    color: colors.primary,
+  },
+
+  keywordsListContainer: {
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+
+  keywordsList: {
+    flex: 1,
+    backgroundColor: colors.background,
+    paddingTop: 8,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 80,
+    zIndex: 100,
+  },
+
 });
 
 export default styles;

@@ -1,22 +1,48 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { FlatList } from 'react-native';
 import T from 'prop-types';
 import s from './styles';
-import { ProductList, SearchInput, Touchable } from '../../components';
-import { colors } from '../../styles';
-import { NavigationService } from '../../services';
+import { ProductList } from '../../components';
+import { BrowseHeader, FilterChip, EmptySearch } from './components';
 
 function BrowseScreen({
-  list,
+  latestList,
   isLoading,
   isLoadingMore,
   fetchLatest,
   fetchLatestMore,
+  searchList,
+  isSearching,
+  isSearchingMore,
+  findProducts,
+  findProductsMore,
+  filterList,
+  removeActiveFilter,
 }) {
+  if (filterList.length !== 0) {
+    return (
+      <React.Fragment>
+        <FlatList
+          horizontal
+          style={s.filterList}
+          data={filterList}
+          keyExtractor={item => `${item.query}-${item.filterName}`}
+          renderItem={({ item }) => <FilterChip item={item} onClose={removeActiveFilter} />}
+        />
+        <ProductList
+          items={searchList}
+          isLoading={isSearching}
+          isLoadingMore={isSearchingMore}
+          fetchItems={findProducts}
+          fetchItemsMore={findProductsMore}
+          ListEmptyComponent={EmptySearch}
+        />
+      </React.Fragment>
+    );
+  }
   return (
     <ProductList
-      items={list}
+      items={latestList}
       isLoading={isLoading}
       isLoadingMore={isLoadingMore}
       fetchItems={fetchLatest}
@@ -25,29 +51,30 @@ function BrowseScreen({
   );
 }
 
-BrowseScreen.navigationOptions = () => ({
-  header:
-  <View style={s.headerContainer}>
-    <SearchInput style={s.searchInput}>
-      <Ionicons name="ios-search" size={28} color={colors.primary} />
-    </SearchInput>
-    <Touchable
-      hitSlop={10}
-      onPress={() => NavigationService.navigateToFilter()}
-      style={s.headerRight}
-      useOpacityAndroid
-    >
-      <AntDesign name="filter" size={28} color={colors.primary} />
-    </Touchable>
-  </View>,
-});
+BrowseScreen.navigationOptions = (props) => {
+  const navProps = props.navigation.getParam('navProps');
+  if (navProps) {
+    const { startSearchBy, setInputFocus } = navProps;
+    return {
+      header:
+  <BrowseHeader searchBy={startSearchBy} setInputFocus={setInputFocus} />,
+    };
+  }
+};
 
 BrowseScreen.propTypes = {
-  list: T.array.isRequired,
+  latestList: T.array.isRequired,
   isLoading: T.bool,
   isLoadingMore: T.bool,
   fetchLatest: T.func,
   fetchLatestMore: T.func,
+  searchList: T.array,
+  isSearching: T.bool,
+  isSearchingMore: T.bool,
+  findProducts: T.func,
+  findProductsMore: T.func,
+  filterList: T.array,
+  removeActiveFilter: T.func,
 };
 
 const func = () => {};
@@ -57,6 +84,8 @@ BrowseScreen.defaultProps = {
   isLoadingMore: false,
   fetchLatest: func,
   fetchLatestMore: func,
+  removeActiveFilter: func,
+  findProducts: func,
 };
 
 export default BrowseScreen;

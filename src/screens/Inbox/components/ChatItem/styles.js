@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
 
   textContainer: {
-    marginLeft: 12,
+    marginLeft: 8,
     justifyContent: 'flex-start',
     width: '100%',
   },
@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
   messageTime: {
     color: colors.textUnused,
     fontSize: 14,
+    textAlign: 'right',
+    paddingHorizontal: 6,
   },
 
   participant: {
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
   lastMessage: {
     color: colors.textPrimary,
     fontSize: 14,
-    width: '80%',
+    width: '75%',
   },
 
   imageWrap: {

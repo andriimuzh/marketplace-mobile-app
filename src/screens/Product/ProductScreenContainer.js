@@ -5,6 +5,7 @@ import ProductScreen from './ProductScreenView';
 import { productsOperations, productsSelectors } from '../../modules/products';
 import { viewerSelectors } from '../../modules/viewer';
 import { NavigationService } from '../../services';
+import { deviceUtils } from '../../utils';
 import { getPhoneNumber, openUrl } from './helpers';
 
 function mapStateToProps(state, props) {
@@ -63,8 +64,11 @@ const enhancer = compose(
   withHandlers({
     onMessagePress: ({ callLoginAlert, viewer, product }) => () => {
       if (viewer) {
-        const { chatId, ownerId } = product;
-        NavigationService.navigateToChat(chatId, ownerId);
+        const {
+          chatId, id, owner, ownerId,
+        } = product;
+        const userId = owner || ownerId;
+        NavigationService.navigateToChat(chatId, id, userId);
       } else {
         callLoginAlert();
       }
@@ -83,54 +87,50 @@ const enhancer = compose(
         callLoginAlert();
       }
     },
-    onImageShare: ({ product }) => async () => {
-      const url = `https://apiko-marketplace-api-2019.herokuapp.com/products/${product.id}`;
+    onProductShare: ({ product }) => async () => {
+      const item = `https://apiko-marketplace-api-2019.herokuapp.com/products/${product.id}`;
       try {
-        const result = await Share.share({
-          title: product.title,
-          message: url,
-        });
-        // FIXME:
-        if (result.action === Share.sharedAction) {
-          if (result.activityType) {
-            // shared with activity type of result.activityType
-          } else {
-            // shared
-          }
-        } else if (result.action === Share.dismissedAction) {
-          // dismissed
-        }
+        await Share.share(
+          deviceUtils.isAndroid ?
+            {
+              message: item,
+              title: product.title,
+            } :
+            {
+              url: item,
+            },
+        );
       } catch (error) {
-        // alert(error.message);
+        console.log(error);
       }
     },
   }),
   lifecycle({
     componentDidMount() {
       const {
-        productOwner, product, navigation, fetchProduct,
-        productId, productsSaveSwitcher, viewer, onImageShare,
+        product, navigation, fetchProduct,
+        productId, productsSaveSwitcher, viewer, onProductShare,
       } = this.props;
 
       navigation.setParams({
         navProps: {
-          product, productsSaveSwitcher, viewer, onImageShare,
+          product, productsSaveSwitcher, viewer, onProductShare,
         },
       });
 
-      if (!productOwner || !product) {
-        fetchProduct(productId);
-      }
+      fetchProduct(productId);
     },
     componentDidUpdate(prevProps) {
       const {
-        product, navigation, productsSaveSwitcher, viewer, onImageShare,
+        product, navigation, productsSaveSwitcher, viewer,
+        onProductShare,
       } = this.props;
+
 
       if (product.saved !== prevProps.product.saved) {
         navigation.setParams({
           navProps: {
-            product, productsSaveSwitcher, viewer, onImageShare,
+            product, productsSaveSwitcher, viewer, onProductShare,
           },
         });
       }

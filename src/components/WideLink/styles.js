@@ -6,15 +6,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
-  innerContainer: {
-    padding: 8,
-    flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    paddingLeft: 8,
+    position: 'relative',
+  },
+
+  iconContainer: {
+    position: 'absolute',
+    right: 1,
   },
 
 });

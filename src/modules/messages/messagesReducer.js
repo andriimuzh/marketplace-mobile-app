@@ -14,13 +14,13 @@ const INITIAL_STATE = {
     isError: false,
   },
 
-  fetchMessages: {
+  getMessages: {
     isLoading: false,
     error: null,
     isError: false,
   },
 
-  fetchMessagesMore: {
+  getMessagesMore: {
     isLoadingMore: false,
     errorMore: null,
     isErrorMore: false,
@@ -73,8 +73,9 @@ export default handleActions(
 
     [actions.fetchMessages.start]: (state) => ({
       ...state,
-      fetchMessages: {
-        ...state.fetchMessages,
+      hasNoMore: false,
+      getMessages: {
+        ...state.getMessages,
         isLoading: true,
         error: null,
         isError: false,
@@ -89,15 +90,15 @@ export default handleActions(
         ...state.items,
         [chatId]: result,
       },
-      fetchMessages: {
-        ...state.fetchMessages,
+      getMessages: {
+        ...state.getMessages,
         isLoading: false,
       },
     }),
     [actions.fetchMessages.error]: (state, action) => ({
       ...state,
-      fetchMessages: {
-        ...state.fetchMessages,
+      getMessages: {
+        ...state.getMessages,
         isLoading: false,
         error: action.payload,
         isError: true,
@@ -107,8 +108,8 @@ export default handleActions(
 
     [actions.fetchMessagesMore.start]: (state) => ({
       ...state,
-      fetchMessagesMore: {
-        ...state.fetchMessagesMore,
+      getMessagesMore: {
+        ...state.getMessagesMore,
         isLoadingMore: true,
         errorMore: null,
         isErrorMore: false,
@@ -121,21 +122,27 @@ export default handleActions(
       ...state,
       items: {
         ...state.items,
-        [chatId]: state.items.concat(result),
+        [chatId]: state.items[chatId].concat(result),
       },
-      fetchMessagesMore: {
-        ...state.fetchMessagesMore,
+      getMessagesMore: {
+        ...state.getMessagesMore,
         isLoadingMore: false,
       },
     }),
     [actions.fetchMessagesMore.error]: (state, action) => ({
       ...state,
-      fetchMessagesMore: {
-        ...state.fetchMessagesMore,
+      getMessagesMore: {
+        ...state.getMessagesMore,
         isLoadingMore: false,
         errorMore: action.payload,
         isErrorMore: true,
       },
+    }),
+
+
+    [actions.messagesHasNoMore]: (state) => ({
+      ...state,
+      hasNoMore: true,
     }),
   },
   INITIAL_STATE,

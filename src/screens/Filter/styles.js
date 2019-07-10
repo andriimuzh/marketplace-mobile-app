@@ -13,18 +13,30 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
 
+  locationBox: {
+    height: 64,
+    borderBottomColor: colors.border,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+
+  locationText: {
+    color: colors.primary,
+    fontSize: 16,
+    marginLeft: 8,
+  },
+
   price: {
     flexDirection: 'row',
     paddingHorizontal: 16,
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    height: 70,
+    height: 62,
   },
 
   priceInput: {
     backgroundColor: colors.background,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border, // TODO: rework
+    borderColor: colors.border,
     height: 48,
     paddingHorizontal: 8,
     paddingTop: 15,

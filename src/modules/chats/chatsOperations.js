@@ -11,7 +11,7 @@ export function createChat(productId) {
 
       const { result, entities } = normalize(res.data, schemas.Chat);
 
-      dispatch(actions.createChat.success({ result, entities }));
+      dispatch(actions.createChat.success({ result, entities, productId }));
 
       return result;
     } catch (err) {

@@ -23,13 +23,19 @@ const enhancer = compose(
     mapDispatchToProps,
   ),
   withHandlers({
-    openChat: () => (chatId) => {
-      NavigationService.navigateToChat(chatId);
+    openChat: () => (chatId, productId) => {
+      NavigationService.navigateToChat(chatId, productId);
     },
   }),
   lifecycle({
     componentDidMount() {
       this.props.fetchChats();
+    },
+    componentDidUpdate(prevProps) {
+      const { fetchChats, chatsList } = this.props;
+      if (chatsList.length !== prevProps.chatsList.length) {
+        fetchChats();
+      }
     },
   }),
 );

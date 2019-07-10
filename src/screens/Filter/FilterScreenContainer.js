@@ -1,26 +1,71 @@
-import { compose, withHandlers, withState, hoistStatics } from 'recompose';
-import { connect } from 'react-redux';
+import { compose, withHandlers, hoistStatics, withStateHandlers } from 'recompose';
+import { Alert } from 'react-native';
 import FilterScreen from './FilterScreenView';
+import { NavigationService } from '../../services';
 
 
 const enhancer = compose(
-  connect(),
-  withState('isPriceFree', 'setPrice', false),
-  withHandlers({
-    onPriceChoose: ({ setPrice }) => (value) => {
-      switch (value) {
-        case 'free':
-          setPrice(true);
-          break;
-        case 'price':
-          setPrice(false);
-          break;
-        default:
-          break;
-      }
+  withStateHandlers(
+    {
+      location: '',
+      priceFrom: '',
+      priceTo: '',
+      isPriceFree: false,
     },
-    setLocation: () => (location) => {
-      console.log(location);
+    {
+      onPriceChoose: () => (value) => {
+        switch (value) {
+          case 'free':
+            return { isPriceFree: true };
+          case 'price':
+            return { isPriceFree: false };
+          default:
+            break;
+        }
+      },
+      setLocation: () => (newLocation) => ({
+        location: newLocation,
+      }),
+      setPriceFrom: () => (value) => ({
+        priceFrom: value,
+      }),
+      setPriceTo: () => (value) => ({
+        priceTo: value,
+      }),
+    },
+  ),
+  withHandlers({
+    startSearch: ({
+      navigation, location, priceFrom, priceTo, isPriceFree,
+    }) => () => {
+      const searchBy = navigation.getParam('searchBy');
+      if (!location) {
+        Alert.alert('Location is required');
+        return;
+      }
+
+      let query = { location };
+      if (priceFrom) {
+        query = {
+          ...query,
+          priceFrom,
+        };
+      }
+      if (priceTo) {
+        query = {
+          ...query,
+          priceTo,
+        };
+      }
+      if (isPriceFree) {
+        query = {
+          location,
+          priceFrom: 0,
+          priceTo: 0,
+        };
+      }
+      searchBy(query);
+      NavigationService.goBack();
     },
   }),
 );
